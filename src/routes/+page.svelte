@@ -81,9 +81,9 @@
     <img class="rounded-full w-[117px] md:row-span-5" src={data.avatar_url} alt="User Avatar" />
     <div class="grid md:grid-cols-2 gap-2">
         {#if data.name}
-        <h2 class="font-bold text-2xl text-dark-text">{data.name}</h2>
+        <h2 class="font-bold text-2xl text-dark-text w-max">{data.name}</h2>
         {:else}
-        <h2 class="font-bold text-2xl text-dark-text">{data.login.replace('@', '')}</h2>
+        <h2 class="font-bold text-2xl text-dark-text w-max">{data.login.replace('@', '')}</h2>
         {/if} 
         <p class="md:text-right self-center text-dark-text">Joined {formatDate(data.created_at)}</p>
         <p class="text-accent-blue row-start-2 row-end-2 :lgrow-start-auto lg:row-end-auto">@{data.login}</p>
