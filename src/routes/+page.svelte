@@ -56,7 +56,7 @@
         <p class="font-bold text-2xl text-dark-text">devfinder</p>
         <button on:click={toggleTheme} class='flex gap-3 items-center'>
             {#if theme === "light"}
-            <span class="text-blue-pale text-sm">DARK</span>
+            <span class="text-blue-pale text-sm hover:text-dark-text">DARK</span>
             {:else}
             <span class="text-white text-sm hover:text-blue-pale">LIGHT</span>
             {/if}
