@@ -85,7 +85,7 @@
         {:else}
         <h2 class="font-bold text-2xl text-dark-text w-max">{data.login.replace('@', '')}</h2>
         {/if} 
-        <p class="md:text-right self-center text-dark-text">Joined {formatDate(data.created_at)}</p>
+        <p class="md:text-right self-center text-blue-pale">Joined {formatDate(data.created_at)}</p>
         <p class="text-accent-blue row-start-2 row-end-2 :lgrow-start-auto lg:row-end-auto">@{data.login}</p>
     </div>
     {#if data.bio}
