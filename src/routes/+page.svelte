@@ -51,11 +51,15 @@
 
 
 
-<div class="p-2 max-w-3xl w-full">
+<div class="p-6 max-w-3xl w-full">
     <div class="flex justify-between py-8">
         <p class="font-bold text-2xl text-dark-text">devfinder</p>
         <button on:click={toggleTheme} class='flex gap-3 items-center'>
-            <span class="text-blue-pale text-sm">{theme === 'light' ? 'Dark' : 'Light'}</span>
+            {#if theme === "light"}
+            <span class="text-blue-pale text-sm">DARK</span>
+            {:else}
+            <span class="text-white text-sm hover:text-blue-pale">LIGHT</span>
+            {/if}
             <img src={theme === "light" ? 'icon-moon.svg' : 'icon-sun.svg'} 
             alt={theme === 'light' ? 'Dark Mode' : 'Light Mode'} />
         </button>
@@ -65,23 +69,31 @@
     <label for="username" class="px-3 md:px-5">
         <img src="icon-search.svg" alt="Search Icon">
     </label>
-    <input class="flex-1 py-2 bg-transparent outline-none placeholder:text-dark-text text-dark-text" type="text" name="username" id="username" placeholder="Search Github username...">
+    <input class="flex-1 py-2 text-[12px] sm:text-lg bg-transparent outline-none placeholder:text-primary-blue text-dark-text" type="text" name="username" id="username" placeholder="Search Github username...">
     {#if error}
-    <span class="text-[red] font-bold mr-6">No results</span>
+    <span class="text-[#F74646] font-bold mr-6">No results</span>
     {/if}
-    <button type="submit" class="px-3 py-2 bg-accent-blue text-white rounded-lg h-full">Submit</button>
+    <button type="submit" class="px-3 py-2 bg-accent-blue text-white rounded-lg h-full hover:bg-[#60ABFF]">Search</button>
     </form> 
 
     {#if data}
-    <div class="grid lg:grid-cols-[auto_1fr] gap-11 mt-5 bg-bkg-white p-12 rounded-2xl shadow-lg">
-    <img class="rounded-full w-[117px] lg:row-span-3" src={data.avatar_url} alt="User Avatar" />
-    <div class="grid grid-cols-2 gap-2">
+    <div class="grid grid-cols-[117px_1fr] gap-6 lg:gap-7 mt-5 bg-bkg-white p-6 md:p-12 rounded-2xl shadow-lg">
+    <img class="rounded-full w-[117px] md:row-span-5" src={data.avatar_url} alt="User Avatar" />
+    <div class="grid md:grid-cols-2 gap-2">
+        {#if data.name}
         <h2 class="font-bold text-2xl text-dark-text">{data.name}</h2>
-        <p class="text-right self-center text-dark-text">Joined {formatDate(data.created_at)}</p>
-        <p class="text-accent-blue">@{data.login}</p>
-        <p class="col-span-2 text-dark-text mt-3">{data.bio ? data.bio : "This profile has no bio"}</p>
+        {:else}
+        <h2 class="font-bold text-2xl text-dark-text">{data.login.replace('@', '')}</h2>
+        {/if} 
+        <p class="md:text-right self-center text-dark-text">Joined {formatDate(data.created_at)}</p>
+        <p class="text-accent-blue row-start-2 row-end-2 :lgrow-start-auto lg:row-end-auto">@{data.login}</p>
     </div>
-      <div class="grid grid-cols-3 py-4 px-8 bg-bkg rounded-[10px] gap-4">
+    {#if data.bio}
+    <p class="text-primary-blue mt-3 col-start-1 col-end-3 md:col-start-auto md:col-end-auto">{data.bio}</p>
+    {:else}
+    <p class="text-primary-blue mt-3 col-start-1 col-end-3 md:col-start-auto md:col-end-auto opacity-6">This profile has no bio</p>
+    {/if} 
+    <div class="grid grid-cols-3 py-4 px-8 bg-bkg rounded-[10px] gap-4 col-start-1 col-end-3 md:col-start-auto md:col-end-auto">
         <div>
             <p class="text-dark-text text-sm">Repos</p>
             <p class="text-dark-text font-bold text-xl">{data.public_repos}</p>
@@ -95,7 +107,7 @@
             <p class="text-dark-text font-bold text-xl">{data.following}</p>
         </div>
     </div>
-    <div class="grid lg:grid-cols-2 gap-y-4 gap-x-20">
+    <div class="grid md:grid-cols-2 gap-y-4 gap-x-20">
         <div class="flex gap-4 items-center text-sm" class:not-available={data.location === null}>
             <img src="icon-location.svg" alt="location icon">
             {#if data.location}
@@ -134,3 +146,10 @@
   </div>
   {/if}
 </div>
+
+
+<style>
+.not-available {
+  opacity: 0.5;
+}
+</style>
