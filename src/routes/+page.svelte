@@ -3,7 +3,7 @@
 
     export let data;
     let error = false;
-    let theme;
+    let theme = 'light';
 
     function toggleTheme() {
         const currentTheme = localStorage.getItem('theme') === 'dark' ? 'light' : 'dark';
@@ -46,23 +46,26 @@
             year: 'numeric' 
         }).format(date);
     }
+
 </script>
+
+
 
 <div class="p-2 max-w-3xl w-full">
     <div class="flex justify-between py-8">
-        <p class="font-bold text-2xl">devfinder</p>
+        <p class="font-bold text-2xl text-dark-text">devfinder</p>
         <button on:click={toggleTheme} class='flex gap-3 items-center'>
             <span class="text-blue-pale text-sm">{theme === 'light' ? 'Dark' : 'Light'}</span>
             <img src={theme === "light" ? 'icon-moon.svg' : 'icon-sun.svg'} 
             alt={theme === 'light' ? 'Dark Mode' : 'Light Mode'} />
         </button>
-        </div>
+    </div>
 
-    <form on:submit={handleSubmit} class="flex justify-between items-center p-3 bg-white rounded-2xl">
-    <label for="username" class="px-5">
+    <form on:submit={handleSubmit} class="flex justify-between items-center p-3 bg-bkg-white rounded-2xl shadow-lg">
+    <label for="username" class="px-3 md:px-5">
         <img src="icon-search.svg" alt="Search Icon">
     </label>
-    <input class="flex-1 py-2 bg-transparent outline-none placeholder:text-primary-blue text-dark-input" type="text" name="username" id="username" placeholder="Search Github username...">
+    <input class="flex-1 py-2 bg-transparent outline-none placeholder:text-dark-text text-dark-text" type="text" name="username" id="username" placeholder="Search Github username...">
     {#if error}
     <span class="text-[red] font-bold mr-6">No results</span>
     {/if}
@@ -70,44 +73,62 @@
     </form> 
 
     {#if data}
-    <div class="grid grid-cols-[auto_1fr] gap-11 mt-5 bg-white p-12 rounded-2xl">
-    <img class="rounded-full w-[117px] row-span-3" src={data.avatar_url} alt="User Avatar" />
+    <div class="grid lg:grid-cols-[auto_1fr] gap-11 mt-5 bg-bkg-white p-12 rounded-2xl shadow-lg">
+    <img class="rounded-full w-[117px] lg:row-span-3" src={data.avatar_url} alt="User Avatar" />
     <div class="grid grid-cols-2 gap-2">
-        <h2 class="font-bold text-2xl text-dark-blue">{data.name}</h2>
-        <p class="text-right self-center text-blue-pale">Joined {formatDate(data.created_at)}</p>
+        <h2 class="font-bold text-2xl text-dark-text">{data.name}</h2>
+        <p class="text-right self-center text-dark-text">Joined {formatDate(data.created_at)}</p>
         <p class="text-accent-blue">@{data.login}</p>
-        <p class="col-span-2 text-primary-blue mt-3">{data.bio ? data.bio : "This profile has no bio"}</p>
+        <p class="col-span-2 text-dark-text mt-3">{data.bio ? data.bio : "This profile has no bio"}</p>
     </div>
       <div class="grid grid-cols-3 py-4 px-8 bg-bkg rounded-[10px] gap-4">
         <div>
-            <p class="text-primary-blue text-sm">Repos</p>
-            <p class="text-dark-blue font-bold text-xl">{data.public_repos}</p>
+            <p class="text-dark-text text-sm">Repos</p>
+            <p class="text-dark-text font-bold text-xl">{data.public_repos}</p>
         </div>
         <div>
-            <p class="text-primary-blue text-sm">Followers</p>
-            <p class="text-dark-blue font-bold text-xl">{data.followers}</p>
+            <p class="text-dark-text text-sm">Followers</p>
+            <p class="text-dark-text font-bold text-xl">{data.followers}</p>
         </div>
         <div>
-            <p class="text-primary-blue text-sm">Following</p>
-            <p class="text-dark-blue font-bold text-xl">{data.following}</p>
+            <p class="text-dark-text text-sm">Following</p>
+            <p class="text-dark-text font-bold text-xl">{data.following}</p>
         </div>
     </div>
-    <div class="grid grid-cols-2 gap-y-4">
-        <div class="flex gap-4 items-center">
+    <div class="grid lg:grid-cols-2 gap-y-4 gap-x-20">
+        <div class="flex gap-4 items-center text-sm" class:not-available={data.location === null}>
             <img src="icon-location.svg" alt="location icon">
-            <p>{data.location ? data.location : "Not Available"}</p>
+            {#if data.location}
+            <p class="text-dark-text">{data.location}</p>
+            {:else}
+            <p class="text-primary-blue">Not Available</p>
+            {/if}
         </div>
-        <div class="flex gap-4 items-center">
+        <div class="flex gap-4 items-center text-sm" class:not-available={data.twitter_username === null}>
             <img src="icon-twitter.svg" alt="twitter icon">
-            <p>{data.twitter_username ? data.twitter_username : "Not Available"}</p>
+            {#if data.twitter_username}
+            <p class="text-dark-text">{data.twitter_username}</p>
+            {:else}
+            <p class="text-primary-blue">Not Available</p>
+            {/if}
         </div>
-        <div class="flex gap-4 items-center">
+        <div class="flex gap-4 items-center text-sm" class:not-available={data.blog === null}>
             <img src="icon-website.svg" alt="website icon">
-            <p>{data.blog ? data.blog : "Not Available"}</p>
+            {#if data.blog}
+            <a href={data.blog} class="hover:underline">
+                <span class="text-dark-text">{data.blog}</span>
+            </a>
+            {:else}
+            <p class="text-primary-blue">Not Available</p>
+            {/if}
         </div>
-        <div class="flex gap-4 items-center">
+        <div class="flex gap-4 items-center text-sm" class:not-available={data.company === null}>
             <img src="icon-company.svg" alt="company icon">
-            <p>{data.company ? data.company : "Not Available"}</p>
+            {#if data.company}
+            <p class="text-dark-text">{data.company}</p>
+            {:else}
+            <p class="text-primary-blue">Not Available</p>
+            {/if}
         </div>
     </div>
   </div>

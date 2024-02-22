@@ -21,9 +21,3 @@ export async function load({ fetch }) {
         return err.message;
     }
 }
-
-export const actions = {
-    setTheme: async ({url, cookies }) => {
-        const theme = url.searchParams.get('theme')
-    }
-}
