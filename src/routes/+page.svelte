@@ -69,7 +69,7 @@
     <label for="username" class="px-3 md:px-5">
         <img src="icon-search.svg" alt="Search Icon">
     </label>
-    <input class="flex-1 py-2 text-[12px] sm:text-lg bg-transparent outline-none placeholder:text-primary-blue text-dark-text" type="text" name="username" id="username" placeholder="Search Github username...">
+    <input class="flex-1 py-2 text-[12px] sm:text-lg bg-[transparent] outline-none placeholder:text-primary-blue text-dark-text" type="text" name="username" id="username" placeholder="Search Github username...">
     {#if error}
     <span class="text-[#F74646] font-bold mr-6">No results</span>
     {/if}
