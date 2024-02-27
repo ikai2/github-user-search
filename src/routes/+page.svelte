@@ -6,7 +6,8 @@
     let theme = 'light';
 
     function toggleTheme() {
-        const currentTheme = localStorage.getItem('theme') === 'dark' ? 'light' : 'dark';
+        // check local storage, if no theme in there check the color scheme if it's dark set it to light otherwise set it to dark
+        const currentTheme = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'light' : 'dark';
         localStorage.setItem('theme', currentTheme);
         document.documentElement.setAttribute('data-theme', currentTheme);
         theme = currentTheme;
