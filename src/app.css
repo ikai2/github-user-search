@@ -19,24 +19,37 @@
   }
   html {
     font-family: "Space Mono", system-ui, sans-serif;
+    color-scheme: light dark;
   }
   @media(prefers-color-scheme:dark) {
     :root {
+      color-scheme: dark;
       --color-bkg: var(--color-bkg-dark);
       --color-bkg-white: var(--color-primary-dark);
       --color-dark-text: var(--color-white);
       --color-primary-blue: var(--color-white);
     }
-    /* [data-theme="light"] {
+    [data-theme="light"] {
       --color-bkg: 227deg 100% 98%;
-    } */
+      --color-dark-blue: 217deg 21% 21%;
+      --color-dark-text: 217deg 21% 21%;
+      --color-primary-blue: 217deg 35% 45%;
+      --color-accent-blue: 212deg 100% 50%;
+      --color-blue-pale: 217deg 20% 51%;
+      --color-white: 0deg 0% 100%;
+      --color-bkg-white: 0deg 0% 100%;
+      --color-offwhite: 227deg 100% 98%;
+      --color-dark-input: 220deg 18% 16%;
+      --color-bkg-dark: 220deg 40% 13%;
+      --color-primary-dark: 222deg 41% 20%;
+    }
   }
   [data-theme="dark"] {
+    color-scheme: dark;
     --color-bkg: var(--color-bkg-dark);
     --color-bkg-white: var(--color-primary-dark);
     --color-dark-text: var(--color-white);
     --color-primary-blue: var(--color-white);
-    /* --color-blue-pale: var(--color-white); */
   }
 }
 
